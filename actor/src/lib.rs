@@ -5,7 +5,7 @@ use spin_sdk::{
     http_component,
 };
 
-use crate::protocol::{Actor, ActorPublicKey};
+use crate::protocol::{Actor, ActorPublicKey, IconLink};
 
 mod protocol;
 
@@ -24,9 +24,13 @@ fn actor(req: Request) -> Result<Response> {
         id: format!("https://{host}/actor"),
         actor_type: "Person".into(),
         preferred_username,
+        // TODO: derive the next two from config or other data source
         name: Some("Yes That Alice".into()),
         summary: Some("Just trying to get a message through to Bob".into()),
-        icon: format!("https://{host}/static/profile.png"),
+        icon: IconLink {
+            url: format!("https://{host}/static/profile.png"),
+            media_type: "image/png".into(),
+        },
         inbox: format!("https://{host}/inbox"),
         public_key: ActorPublicKey {
             id: format!("https://{host}/actor#main-key"),

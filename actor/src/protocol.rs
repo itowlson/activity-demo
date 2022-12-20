@@ -13,11 +13,7 @@ pub struct Actor {
     pub name: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub summary: Option<String>,
-
-    // `icon` isn't working and I'm not sure whether I messed up the format or
-    // something?  Docs seem contradictory
-    pub icon: String,
-
+    pub icon: IconLink,
     pub inbox: String,
     pub public_key: ActorPublicKey,
 }
@@ -28,4 +24,11 @@ pub struct ActorPublicKey {
     pub id: String,
     pub owner: String,
     pub public_key_pem: String,
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct IconLink {
+    pub url: String,
+    pub media_type: String,
 }
