@@ -24,6 +24,9 @@ fn actor(req: Request) -> Result<Response> {
         id: format!("https://{host}/actor"),
         actor_type: "Person".into(),
         preferred_username,
+        name: Some("Yes That Alice".into()),
+        summary: Some("Just trying to get a message through to Bob".into()),
+        icon: format!("https://{host}/static/profile.png"),
         inbox: format!("https://{host}/inbox"),
         public_key: ActorPublicKey {
             id: format!("https://{host}/actor#main-key"),
