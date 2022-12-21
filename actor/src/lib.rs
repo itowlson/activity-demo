@@ -12,6 +12,8 @@ mod protocol;
 /// A simple Spin HTTP component.
 #[http_component]
 fn actor(req: Request) -> Result<Response> {
+    eprintln!("[{}] Actor request for {}", chrono::Utc::now().format("%d/%m:%T"), req.uri());
+
     let host = host(&req)?;
     let preferred_username = spin_sdk::config::get("username")?;
     let public_key_pem = spin_sdk::config::get("public_key")?;
@@ -32,6 +34,9 @@ fn actor(req: Request) -> Result<Response> {
             media_type: "image/png".into(),
         },
         inbox: format!("https://{host}/inbox"),
+        outbox: Some(format!("https://{host}/outbox")),
+        followers: None, // Some(format!("https://{host}/followers")),
+        following: None, // Some(format!("https://{host}/following")),
         public_key: ActorPublicKey {
             id: format!("https://{host}/actor#main-key"),
             owner: format!("https://{host}/actor"),

@@ -15,6 +15,12 @@ pub struct Actor {
     pub summary: Option<String>,
     pub icon: IconLink,
     pub inbox: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub outbox: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub followers: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub following: Option<String>,
     pub public_key: ActorPublicKey,
 }
 

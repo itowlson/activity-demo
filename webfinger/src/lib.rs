@@ -11,7 +11,7 @@ mod protocol;
 /// A simple Spin HTTP component.
 #[http_component]
 fn webfinger(req: Request) -> Result<Response> {
-    eprintln!("Webfinger request for {}", req.uri());
+    eprintln!("[{}] Webfinger request for {}", chrono::Utc::now().format("%d/%m:%T"), req.uri());
 
     let host = host(&req)?;
     let preferred_username = spin_sdk::config::get("username")?;

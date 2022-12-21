@@ -8,8 +8,17 @@ version = "0.1.0"
 [variables]
 # `username` may need to be changed on rebuild to defeat caching (which is rude
 # but is something to figure  out later!)
-username = { default = "alice4" }
+username = { default = "alice17" }
 public_key = { default = "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvdCBzYcXRKavTMv3qB46\n/FelDlfdQJV2wg/Ys4RRFFWiOBaODP9IEvik9faSfSHR0ArgUi1p9e9EnqFauN9A\nQU8zgnYNGn6Hvg2j2aG1oF7dsNxAQZwbtWRleh/ZFGB7uE+zqSxQE0GumUI2LEbI\n6nc1yXO4ySRpRjyJM4F++JZ6+ZFjzWHXabXTY5NthsuBGxn/+LsxZtVXklg85PCz\nQhDEleiUY7xF7TGRLLgDU4gh4tahqoBLeBpVqNIExvL06uCPrsN5toFDYt3VR3z2\n5vPhl4sivp154s6xhdL6A+xupDBKWJjq4VTzzzexvSj0bvh9gThAQrMz2HpIIc2c\nSwIDAQAB\n-----END PUBLIC KEY-----\n" }
+
+[[component]]
+id = "nope"
+source = "nope/target/wasm32-wasi/release/nope.wasm"
+[component.trigger]
+route = "/..."
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "nope"
 
 [[component]]
 id = "webfinger"
@@ -41,3 +50,12 @@ id = "static"
 files = [ { source = "assets", destination = "/" } ]
 [component.trigger]
 route = "/static/..."
+
+[[component]]
+id = "outbox"
+source = "outbox/target/wasm32-wasi/release/outbox.wasm"
+[component.trigger]
+route = "/outbox"
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+workdir = "outbox"
